@@ -1,0 +1,9 @@
+<body>
+        <form action="output.jsp">
+            Enter the temperature in Fahreheit:<input type="text" name="y1" required>
+             Enter the temperature in Celsius:<input type="text" name="y2" required>
+            <input type="submit">  <input type="reset">
+        </form>
+    </body>
+
+Double.parseDouble(request.getParameter("t1"));
