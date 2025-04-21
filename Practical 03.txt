@@ -1,0 +1,105 @@
+Practical 03
+
+Here's a step-by-step guide with **copyable code** where necessary to implement the **CRUD RESTful service using a “Student” database**, based on your uploaded PDF.
+
+---
+
+## 🌐 Goal
+Create a RESTful web service with CRUD operations on a "Student" database using Java EE, JSF, and NetBeans.
+
+---
+
+### ✅ Prerequisites
+- NetBeans IDE
+- Java DB (Derby)
+- JDK installed and configured
+
+---
+
+## 🔧 Step-by-Step Instructions
+
+### **1. Start Java DB**
+- Open NetBeans.
+- Go to `Window` > `Services`.
+- Under `Databases`, right-click on **Java DB** > **Start Server**.
+
+---
+
+### **2. Connect to Sample Database**
+- Expand **Java DB** > Right-click **sample** > Click **Connect**.
+
+---
+
+### **3. Create a New Web Application**
+- Go to `File` > `New Project` > `Java Web` > `Web Application`.
+- Name it: `CRUD_Operation`.
+- Click **Next** and **Finish**.
+
+---
+
+### **4. Create Entity Class**
+- Right-click on project name `CRUD_Operation` > `New` > `Entity Class`.
+- Enter:
+  ```java
+  Class Name: Stud_Name
+  Package Name: p1
+  ```
+- Click **Next** > **Finish**.
+
+This will generate `Stud_Name.java`.
+
+---
+
+### **5. Add a Property to Entity**
+- Open `Stud_Name.java`.
+- At line 24, right-click > `Insert Code` > `Add Property`.
+- Set:
+  ```java
+  Property Name: studName
+  Type: String
+  ```
+- Click **OK**. This generates:
+  ```java
+  private String studName;
+
+  public String getStudName() {
+      return studName;
+  }
+
+  public void setStudName(String studName) {
+      this.studName = studName;
+  }
+  ```
+
+---
+
+### **6. Generate JSF Pages from Entity Classes**
+- Right-click project > `New` > `JSF Pages from Entity Classes`.
+- Select `Stud_Name` > Click **Add** > **Next**.
+- Leave defaults or set:
+  ```text
+  Package: p1
+  JSF Pages Folder: web
+  ```
+- Click **Finish**.
+
+---
+
+### **7. Generate RESTful Web Services**
+- Right-click project > `New` > `RESTful Web Services from Entity Classes`.
+- Select `Stud_Name` > Add > Next.
+- Set:
+  ```text
+  Resource Package: p1.service
+  ```
+- Click **Finish**.
+
+This generates RESTful endpoints.
+
+---
+
+### **8. Deploy & Run**
+- Right-click on project > `Deploy`.
+- Then, right-click again > `Run`.
+
+A browser window will open, showing the deployed app.

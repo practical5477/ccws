@@ -1,0 +1,152 @@
+Practical 05
+
+Here's the **copyable code and complete step-by-step guide** for **Practical 5: Installing and Configuring Virtualization using KVM** based on your uploaded PDF.
+
+---
+
+## 🧪 **Objective:**
+Set up and configure virtualization using **KVM (Kernel-based Virtual Machine)** on a Linux system (preferably Ubuntu).
+
+---
+
+## ✅ **Step-by-Step Instructions**
+
+---
+
+### 🔍 Step 1: Check if Virtualization is Enabled
+
+```bash
+egrep -c '(vmx|svm)' /proc/cpuinfo
+```
+
+- Output `1` or more: Virtualization is enabled ✅  
+- Output `0`: Enable virtualization in BIOS/UEFI ❌
+
+---
+
+### 🧠 Step 2: Check Virtualization Support Type
+
+```bash
+lscpu | grep Virtualization
+```
+
+- Look for `VT-x` (Intel) or `AMD-V` (AMD)
+
+---
+
+### 📦 Step 3: Install KVM and Required Packages
+
+```bash
+sudo apt update
+sudo apt -y install bridge-utils cpu-checker libvirt-clients libvirt-daemon qemu qemu-kvm virt-manager
+```
+
+**Descriptions:**
+- `bridge-utils`: Manage network bridge
+- `cpu-checker`: CPU virtualization check
+- `libvirt-*`: Virtualization management tools
+- `qemu`: Emulator
+- `virt-manager`: GUI for creating/managing VMs
+
+---
+
+### ✅ Step 4: Verify KVM Installation
+
+```bash
+sudo kvm-ok
+```
+
+If KVM is supported and active, it’ll show:
+> KVM acceleration can be used
+
+---
+
+### 🔄 Step 5: Start & Enable libvirt Daemon
+
+Check daemon status:
+
+```bash
+sudo systemctl status libvirtd
+```
+
+If **not active**, enable it:
+
+```bash
+sudo systemctl enable --now libvirtd
+```
+
+---
+
+### 👤 Step 6: Add User to KVM Group
+
+```bash
+sudo adduser [your-username] libvirtd
+```
+
+Replace `[your-username]` with your Linux username.
+
+---
+
+## 💻 Create Virtual Machines
+
+---
+
+### 📜 **Method 1: Command Line (CLI)**
+
+```bash
+sudo virt-install \
+--name=ubuntu-guest \
+--os-variant=ubuntu20.04 \
+--vcpu=2 \
+--ram=2048 \
+--graphics none \
+--location=/path/to/your.iso \
+--network bridge=virbr0
+```
+
+**Parameters explained:**
+- `--name`: Name of VM
+- `--os-variant`: OS type/version
+- `--vcpu`: Number of CPUs
+- `--ram`: Memory in MB
+- `--graphics none`: No GUI
+- `--location`: ISO file path
+- `--network`: Uses network bridge
+
+---
+
+### 🖥️ **Method 2: Graphical Interface (GUI via virt-manager)**
+
+1. Launch it:
+   ```bash
+   virt-manager
+   ```
+2. Click `Create a new virtual machine`
+3. Choose installation media (ISO, CD, network, etc.)
+4. Set path to ISO file
+5. Allocate memory and CPU
+6. Specify disk size
+7. Name your VM and finalize
+
+---
+
+### 🎉 Done!
+
+
+Extract :
+
+a) if this is difficult then do this:
+
+= > sudo apt install virt-manager qemu-system
+
+b) then open : virtual manager 
+
+c) add connection
+QEMU user session
+
+d) then Right click on QEMU user session created in virtual manager
+
+e) new connection
+
+f) follow the step as we do for virtualiztion Operating system installation
+

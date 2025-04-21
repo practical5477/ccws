@@ -1,0 +1,122 @@
+Practical 01
+
+Here’s a clean, copyable version of the full **Practical 1** with clear **steps** and **code blocks** for each part (Java, JSP, Python):
+
+---
+
+## 🧪 Practical 1: Create and Use a Web Service (INR to USD Conversion)
+
+### ✅ Objective
+Create a simple web service (like converting Rs to Dollar) and call it from:
+- Java Platform (via JSP)
+- .NET (not covered here)
+- Python Client
+
+---
+
+### 🔧 Step-by-Step Instructions
+
+#### 🌀 Part 1: Create Web Service in Java (NetBeans)
+
+1. **Create a new project** in NetBeans → `Java Web` → `Web Application`.
+
+2. **Right click on the project** → `New` → `Web Service`.
+
+3. Name your web service (e.g., `TempConverter`).
+
+4. **Right click on code area** inside the service → `Insert Code` → `Add Web Service Operation`.
+
+5. Name the operation `FtoC`, set:
+   - Parameter: `a` (data type: `double`)
+   - Click OK
+
+6. Modify the auto-generated method as:
+
+```java
+@WebMethod(operationName = "FtoC")
+public double FtoC(@WebParam(name = "a") double a) {
+    return (a - 32) * 5 / 9;
+}
+```
+
+7. **Deploy the service** by right-clicking the project → `Deploy`.
+
+8. **Test the service**:
+   - Right-click the service → `Test Web Service`.
+   - It opens a browser to test your operation (enter input and get output).
+
+---
+
+### 🧑‍💻 Part 2: Java Client using JSP
+
+1. Right click on `Web Pages` → `New` → `JSP` → Name: `input.jsp`
+
+2. Create another JSP → Name: `output.jsp`
+
+3. `input.jsp` code:
+
+```jsp
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<html>
+<head><title>Input Page</title></head>
+<body>
+    <form action="output.jsp">
+        Enter Fahrenheit: <input type="text" name="temp" />
+        <input type="submit" value="Convert" />
+    </form>
+</body>
+</html>
+```
+
+4. **Create Web Service Client**:
+   - Right click on project → `New` → `Web Service Client`
+   - Provide the WSDL URL (copied from test web service page)
+   - Name the package e.g., `Client`
+
+5. In `output.jsp`, drag & drop the web service operation into the `body` tag or write manually:
+
+```jsp
+<%@page import="Client.TempConverterService"%>
+<%@page import="Client.TempConverter"%>
+<%
+    double t = Double.parseDouble(request.getParameter("temp"));
+    TempConverterService service = new TempConverterService();
+    TempConverter port = service.getTempConverterPort();
+    double result = port.ftoC(t);
+%>
+
+<html>
+<head><title>Output</title></head>
+<body>
+    Celsius: <%= result %>
+</body>
+</html>
+```
+
+6. **Deploy the app again**, run `input.jsp`, submit temperature → see Celsius on output page.
+
+---
+
+### 🐍 Part 3: Python Client (Using `zeep` SOAP Library)
+
+#### 💻 Prerequisite
+Install `zeep` using pip:
+```bash
+pip install zeep
+```
+
+#### 🧾 Python Code
+
+```python
+from zeep import Client
+
+# replace with actual URL of your WSDL
+wsdl_url = 'http://localhost:8080/Practical_2/TempConverter?wsdl'
+
+client = Client(wsdl_url)
+
+# call the method
+d = float(input("Enter temperature in Fahrenheit: "))
+result = client.service.FtoC(d)
+print("Temperature in Celsius:", result)
+```

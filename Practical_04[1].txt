@@ -1,0 +1,212 @@
+Practical 04
+
+Here's a full **copyable code implementation** and **step-by-step guide** for **Practical 4** — consuming **Google Maps RESTful Web Service** using JSP in NetBeans.
+
+---
+
+## 🌍 Goal:
+Create a Java web application that takes **latitude** and **longitude** from the user and displays the location on **Google Maps**.
+
+---
+
+## ✅ Prerequisites
+- NetBeans IDE
+- JDK configured
+- Internet access
+- Google Maps API key ([Get one here](https://console.developers.google.com))
+
+---
+
+## 🔧 Step-by-Step Instructions
+
+---
+
+### **1. Create Web Application in NetBeans**
+- Go to: `File` > `New Project` > `Java Web` > `Web Application`.
+- Name it: `GoogleMap`.
+- Click **Next** > **Finish**.
+
+---
+
+### **2. Create input.jsp**
+Right-click `Web Pages` > `New` > `JSP` > Name it `input.jsp`.
+
+Paste this code:
+
+```jsp
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Location Input</title>
+</head>
+<body>
+    <form action="index.jsp">
+        <pre>
+Enter latitude: <input type="text" name="t1" />
+Enter longitude: <input type="text" name="t2" />
+<input type="submit" value="Show" />
+        </pre>
+    </form>
+</body>
+</html>
+```
+
+---
+
+### **3. Get Google Maps API Key**
+- Go to: [https://console.developers.google.com](https://console.developers.google.com)
+- Login with your Google account.
+- Create a project.
+- Enable **Google Maps JavaScript API (V3)**.
+- Generate an API Key.
+
+---
+
+### **4. Create index.jsp**
+Right-click `Web Pages` > `New` > `JSP` > Name it `index.jsp`.
+
+Paste this code (replace `YOUR_API_KEY` with your actual key):
+
+```jsp
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Google Maps</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<%
+    double lati = Double.parseDouble(request.getParameter("t1"));
+    double longi = Double.parseDouble(request.getParameter("t2"));
+%>
+
+<h3>Google Maps</h3>
+<div id="map"></div>
+
+<script>
+    function initMap() {
+        var info = { lat: <%= lati %>, lng: <%= longi %> };
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: info
+        });
+
+        var marker = new google.maps.Marker({
+            position: info,
+            map: map
+        });
+    }
+</script>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+</script>
+
+</body>
+</html>
+```
+
+---
+
+### ✅ How it Works
+1. `input.jsp` takes latitude & longitude as input.
+2. Passes them as parameters to `index.jsp`.
+3. `index.jsp` uses them to show the location on Google Maps using the Maps API.
+
+---
+
+API Key: https://maps.googleapis.com/maps/api/js?key=AIzaSyBn-8VYQVnnC75dZFWywymATQnDM33Vx9k&callback=initMap
+
+
+
+
+//direct code 
+
+REST-Map
+
+input.jsp:-
+<%-- 
+    Document   : input
+    Created on : 18 Apr, 2025, 12:24:17 PM
+    Author     : Pawar
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <form action="index.jsp"> 
+            <pre> 
+                Enter latitude:<input type="text" name="t1" /> 
+                Enter longitude:<input type="text" name="t2" /> 
+                <input type="submit" value="Show" /> </pre>
+        </form>
+    </body>
+</html>
+
+
+index.jsp:-
+<%-- 
+    Document   : index
+    Created on : 18 Apr, 2025, 12:25:20 PM
+    Author     : Pawar
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Google Maps</title> 
+         <style> 
+        #map { 
+            height: 400px; 
+            width: 100%; 
+        } 
+    </style> 
+    </head>
+    <body>
+        <% 
+        double lati = Double.parseDouble(request.getParameter("t1")); 
+        double longi = Double.parseDouble(request.getParameter("t2")); 
+    %> 
+ 
+    <h3>Google Maps</h3> 
+    <div id="map"></div> 
+ 
+    <script lang="javascript"> 
+        function initMap() { 
+            var info = { lat: <%= lati %>, lng: <%= longi %> }; 
+ 
+            var map = new google.maps.Map(document.getElementById('map'), { 
+                zoom: 4, 
+                center: info 
+            }); 
+ 
+            var marker = new google.maps.Marker({ 
+                position: info, 
+                map: map 
+            }); 
+        } 
+    </script>
+     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn-8VYQVnnC75dZFWywymATQnDM33Vx9k&callback=initMap"></script>
+    </body>
+</html>
+
+
+console:-https://console.developers.google.com/ 

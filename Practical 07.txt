@@ -1,0 +1,122 @@
+Practical 07
+
+Here's the **step-by-step guide and commands** (all copyable) for **Practical 7: Implementing FOSS-Cloud VSI (Virtual Server Infrastructure) – Infrastructure as a Service (IaaS)** based on your uploaded PDF.
+
+---
+
+## ☁️ **Goal:**
+Set up **FOSS-Cloud** in a virtual environment to simulate **Infrastructure as a Service (IaaS)**—creating virtual machines or storage on a private cloud.
+
+---
+
+## 🖥️ **System Requirements**
+- VMware Workstation Player 15 or later
+- FOSS-Cloud ISO file
+- Minimum: 2–3 CPUs, 16 GB RAM
+
+---
+
+## 🔧 **Step-by-Step Setup**
+
+### **1. Launch VMware & Load FOSS-Cloud ISO**
+- Open **VMware Workstation Player 15**
+- Click `Open a Virtual Machine`
+- Browse and select your **FOSS-Cloud ISO**
+- OS: Select `Other`  
+- Version: Select `Other`
+
+**Name it:** `FOSS`
+
+---
+
+### **2. Configure VM Resources**
+- Click **Edit virtual machine**
+- Set:
+  - **Processors**: 2 or 3
+  - **Memory**: At least 16 GB
+
+---
+
+### **3. Boot and Start Installation**
+- Launch the VM
+- Select:
+  ```
+  Foss-Cloud installer: default boot options
+  ```
+- Press **Enter**
+
+---
+
+### **4. Reboot & Select FOSS Cloud**
+- After initial setup, reboot VM
+- Choose `foss cloud` on boot
+
+---
+
+### **5. Start Installation Process**
+- Type:
+  ```
+  yes
+  ```
+- Hit **Enter** to begin installation
+
+---
+
+### **6. Choose System Type**
+- Select:
+  ```
+  Demo System
+  ```
+- Press **Enter**
+
+---
+
+### **7. Configure Disk**
+- When asked, enter:
+  ```
+  sda
+  ```
+- Press **Enter**
+
+---
+
+### **8. FOSS Cloud Credentials**
+- Enter the default credentials when prompted to start the system
+
+---
+
+### **9. Configure Node**
+Type this command **inside the FOSS VM** terminal:
+
+```bash
+Fc-node-configuration -n demo-system -password admin
+```
+
+---
+
+### **10. Get the IP Address**
+To get the VM's IP address, run:
+
+```bash
+ifconfig
+```
+
+---
+
+### **11. Access FOSS-Cloud Web Interface**
+On your **host machine (Windows)**:
+- Open a browser
+- Type the **IP address** you got from `ifconfig`
+- Press Enter
+
+✅ You should see the **FOSS-Cloud Web Interface**
+
+---
+
+### **12. Login to FOSS-Cloud**
+- Use the **default login credentials** shown on the web page
+- After logging in, you’ll be on the FOSS-Cloud management dashboard
+
+---
+
+## 🎉 Done!

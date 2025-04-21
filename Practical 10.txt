@@ -1,0 +1,156 @@
+Practical 10
+
+Here's your complete **copyable code and step-by-step guide** for **Practical 10: Implementation of OpenStack with User and Private Network Creation**, as described in the uploaded PDF.
+
+---
+
+## ☁️ Objective:
+Install and configure **OpenStack** on Ubuntu using **DevStack**, including setting up users and private networks.
+
+---
+
+## 🔧 Prerequisites:
+- Ubuntu system (18.04/20.04 recommended)
+- sudo privileges
+- Internet connection
+
+---
+
+## ✅ Step-by-Step Instructions
+
+---
+
+### 🔁 Step 1: Update and Upgrade System
+
+```bash
+sudo apt update && sudo apt -y upgrade
+```
+
+Reboot the system:
+
+```bash
+sudo reboot
+```
+
+Or
+
+```bash
+init 6
+```
+
+---
+
+### 👤 Step 2: Create a Stack User
+
+Create a user for running DevStack:
+
+```bash
+sudo useradd -s /bin/bash -d /opt/stack -m stack
+```
+
+Grant sudo privileges:
+
+```bash
+echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
+```
+
+Switch to the new user:
+
+```bash
+sudo su - stack
+```
+
+---
+
+### 🔧 Step 3: Install Git (if not installed)
+
+```bash
+sudo apt install git -y
+```
+
+---
+
+### 📥 Step 4: Download DevStack
+
+```bash
+git clone https://git.openstack.org/openstack-dev/devstack
+```
+
+---
+
+### 🛠️ Step 5: Create `local.conf` Configuration File
+
+Navigate to devstack directory:
+
+```bash
+cd devstack
+```
+
+Create the config file:
+
+```bash
+nano local.conf
+```
+
+Paste the following configuration (update `HOST_IP` based on `ifconfig`):
+
+```ini
+[[local|localrc]]
+
+# Password for KeyStone, Database, RabbitMQ and Service
+ADMIN_PASSWORD=StrongAdminSecret
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+
+# Host IP - Run `ip addr` or `ifconfig` to get this
+HOST_IP=192.168.56.103
+```
+
+Save and exit:
+- Press `ESC`, then type `:wq` and hit Enter.
+
+---
+
+### 🚀 Step 6: Install OpenStack
+
+Run the installation script (this will take 10–20 minutes):
+
+```bash
+./stack.sh
+```
+
+DevStack installs:
+- Nova (Compute)
+- Glance (Images)
+- Keystone (Identity)
+- Cinder (Block Storage)
+- Horizon (Dashboard)
+- Neutron (Networking)
+- Swift (Object Storage)
+
+---
+
+### 🌐 Step 7: Access OpenStack Dashboard
+
+After installation, you’ll see a link like:
+
+```
+http://<your-ip-address>/dashboard
+```
+
+Use:
+- **Username**: `admin`
+- **Password**: `StrongAdminSecret` (or your set password)
+
+Open it in a browser to access the web dashboard.
+
+---
+
+## 🎯 Conclusion:
+You've successfully installed OpenStack and can now create:
+- Users
+- Projects
+- Networks
+- Virtual machines
+

@@ -1,0 +1,144 @@
+Practical 02
+
+Here’s a clean, copyable, and organized version of **Practical 2** from the PDF file — structured just like before with proper **steps**, **code blocks**, and platform-specific instructions.
+
+---
+
+## 🧪 Practical 2: Create a Simple SOAP Service (INR to USD Conversion)
+
+### ✅ Objective
+Create a SOAP-based Web Service to convert **INR to Dollar**, and access it from:
+- Java (via JSP)
+- Python
+- .NET (not covered here)
+
+---
+
+### 🔧 Step-by-Step Instructions
+
+---
+
+### 🌀 Part 1: Create SOAP Web Service in Java (NetBeans)
+
+1. **Open NetBeans** → Close Start Page.
+
+2. Click `File` → `New Project`.
+
+3. In dialog:
+   - Category: `Java Web`
+   - Project: `Web Application`
+   - Click `Next`
+
+4. Give your project a name (e.g., `CurrencyConverter`) → Click `Next` → then `Finish`.
+
+5. In **Projects panel**, expand your project.
+
+6. Right-click on `Source Packages` → `New` → `Web Service`.
+
+7. In the dialog:
+   - **Name**: `Currency`
+   - **Package**: `server`
+   - Click `Finish`
+
+8. In the Web Service code area, right-click → `Insert Code` → `Add Web Service Operation`.
+
+9. Give:
+   - Operation Name: `InrtoDollar`
+   - Parameter: `amount` (type: `double`)
+   - Click `OK`
+
+10. Replace the auto-generated method with this:
+
+```java
+@WebMethod(operationName = "InrtoDollar")
+public double InrtoDollar(@WebParam(name = "amount") double amount) {
+    return amount / 83.0; // Assuming 1 USD = 83 INR
+}
+```
+
+11. Save and **deploy** the project (Right-click → `Deploy`).
+
+12. To **test the service**:
+   - Right-click the web service → `Test Web Service`.
+   - Browser opens → input a value → verify the output.
+
+---
+
+### 🧑‍💻 Part 2: Java Client using JSP
+
+13. Right-click on `Web Pages` → `New` → `JSP` → Name: `input.jsp`
+
+14. Do it again → Name: `output.jsp`
+
+15. In `input.jsp`, add a form:
+
+```jsp
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<html>
+<head><title>Input Page</title></head>
+<body>
+    <form action="output.jsp">
+        Enter Amount in INR: <input type="text" name="amount" />
+        <input type="submit" value="Convert" />
+    </form>
+</body>
+</html>
+```
+
+16. Now, **create a Web Service Client**:
+   - Right-click project → `New` → `Web Service Client`
+   - Select project and WSDL
+   - **Package name**: `Client`
+   - Click `Finish`
+   - Copy WSDL URL for Python use later.
+
+17. In `output.jsp`, add this code:
+
+```jsp
+<%@page import="Client.Currency"%>
+<%@page import="Client.CurrencyService"%>
+<%
+    double amt = Double.parseDouble(request.getParameter("amount"));
+    CurrencyService service = new CurrencyService();
+    Currency port = service.getCurrencyPort();
+    double result = port.inrtoDollar(amt);
+%>
+
+<html>
+<head><title>Output</title></head>
+<body>
+    USD Equivalent: <%= result %>
+</body>
+</html>
+```
+
+18. **Deploy and run** `input.jsp`, enter INR value → see USD on `output.jsp`.
+
+---
+
+### 🐍 Part 3: Python Client (Using `zeep`)
+
+#### 💻 Prerequisite
+Install `zeep` using pip:
+
+```bash
+pip install zeep
+```
+
+#### 🧾 Python Code
+
+```python
+from zeep import Client
+
+# Replace with actual WSDL URL from NetBeans
+wsdl_url = 'http://localhost:8080/pract/Currency?wsdl'
+
+client = Client(wsdl_url)
+
+# Call the method
+d = float(input("Enter Currency in Indian Rupees: "))
+result = client.service.InrtoDollar(d)
+print("USD Equivalent:", result)
+```
+
+✅ Ensure your web service is deployed and running before executing the Python script.

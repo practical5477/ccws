@@ -1,0 +1,113 @@
+Practical 09
+
+Here's your complete **copyable code and step-by-step guide** for **Practical 9: Create a Simple Workflow using AWS Flow Framework** with Hello World example using **AWS SAM CLI**.
+
+---
+
+## 🧪 **Objective:**
+Use AWS Flow Framework to create an application that:
+- Uses a simple workflow
+- Prints **"Hello World"** to the console
+- Demonstrates contracts, activities, coordination logic, and local testing
+
+---
+
+## ✅ **Step-by-Step Instructions**
+
+---
+
+### 🔧 Step 1: Update & Upgrade Your System
+
+```bash
+sudo apt-get update && sudo apt-get upgrade
+```
+
+---
+
+### ⬇️ Step 2–5: Install AWS CLI
+ google - linux
+
+```bash
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+curl -o awscliv2.sig https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip.sig
+
+aws installation ubuntu
+
+cd Downloads 
+
+unzip awscliv2.zip
+sudo ./aws/install
+```
+
+---
+
+### 🐍 Step 6: Install AWS SAM CLI
+
+```bash
+pip3 install aws-sam-cli
+```
+
+---
+
+### 🚀 Step 7–11: Initialize Hello World Project
+
+```bash
+sam init
+```
+
+1. Select: **1 - AWS Quick Start Templates**
+2. Template: **1 - Hello World Example**
+3. When asked "Use most popular runtime?", type: `N`
+4. Select your Python version (e.g. **19 - python3.11** if applicable)
+5. Package type: `Zip`
+6. Say **Yes** to other prompts
+7. Set project name (e.g., `sam-app-test`)
+
+sudo snap install docker
+
+---
+
+### 📁 Step 12: Build & Run Locally
+
+```bash
+cd sam-app-test
+sam local invoke "HelloWorldFunction"
+```
+
+✅ Output should include:
+```
+StatusCode: 200
+```
+
+💡 If you see a **Docker error**, install Docker:
+
+```bash
+sudo snap install docker
+```
+
+---
+
+### 🌐 Step 13: Start Local API & Test
+
+```bash
+sam local start-api
+```
+
+Open the URL shown (usually: `http://127.0.0.1:3000/hello`) in your **browser**.
+
+You should see:
+
+```
+{"message":"hello world"}
+```
+
+---
+
+## 🎉 Done!
+
+You've:
+- Set up AWS SAM
+- Initialized a serverless app
+- Created a simple **Hello World** workflow
+- Tested it locally using Docker and SAM
+
